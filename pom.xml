@@ -69,6 +69,13 @@
 			<version>4.12</version>
 		</dependency>
 
+		<!--集成es-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>
