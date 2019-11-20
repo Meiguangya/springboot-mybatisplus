@@ -11,6 +11,11 @@ spring:
       cluster-nodes: 127.0.0.1:9300
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
+  thymeleaf:
+    cache: false
+  devtools:
+    restart:
+      enabled: true
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
@@ -18,5 +23,4 @@ mybatis-plus:
     db-config:
       logic-delete-value: 1
       logic-not-delete-value: 0
-
 

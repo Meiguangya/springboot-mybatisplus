@@ -8,6 +8,7 @@ import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @Document(indexName = "blog", type = "doc",
@@ -26,9 +27,9 @@ public class EsBlog {
 
     @Field(type = FieldType.Date, format = DateFormat.custom,
             pattern = "yyyy-MM-hh HH:mm:ss || yyyy-MM-dd || epoch_millis")
-    private LocalDateTime createTime;
+    private Date createTime;
 
     @Field(type = FieldType.Date, format = DateFormat.custom,
             pattern = "yyyy-MM-hh HH:mm:ss || yyyy-MM-dd || epoch_millis")
-    private LocalDateTime updateTime;
+    private Date updateTime;
 }
