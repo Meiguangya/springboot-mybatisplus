@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-grid.min.css">
     <link rel="stylesheet" href="css/bootstrap-reboot.min.css">
+    <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -16,6 +17,7 @@
             <h2>
                 Springboot + ES - 演示博客
             </h2>
+            <button onclick="test()">测试1</button>
         </div>
     </div>
 
@@ -25,11 +27,14 @@
                 <div class="form-group mb-2">
                     <input type="text" class="form-control" id="title-mysql" placeholder="检索你的检索" v-model="keyword">
                 </div>
-                <button type="button" class="btn btn-primary mb-2" style="margin-left: 5px;" @click="searchWithMysql">mysql</button>
-                <button type="button" class="btn btn-primary mb-2" style="margin-left: 5px;" @click="searchWithEs">ES</button>
+                <button type="button" class="btn btn-primary mb-2" style="margin-left: 5px;" @click="searchWithMysql">
+                    mysql
+                </button>
+                <button type="button" class="btn btn-primary mb-2" style="margin-left: 5px;" @click="searchWithEs">ES
+                </button>
                 <span style="margin-left: 10px; color: green;">耗时：{{duration}}</span>
             </form>
-            <div class="row" >
+            <div class="row">
                 <div class="col-sm-6" v-for="(blog,index) in blogList" style="margin-top: 20px;">
                     <div class="card">
                         <div class="card-img-top">
@@ -66,43 +71,62 @@
 <script src="js/vue.js"></script>
 <script src="js/axios.min.js"></script>
 <script>
+    function test() {
+        var param = {};
+        param.name = "aa";
+        param.age = "12";
+        console.log(param);
+        $.ajax({
+            url: "localhost:8080/test/t1",
+            data: param,
+            type: 'post',
+            contentType: 'application/json;charset=UTF-8',
+            dataType: 'json',
+            success: function (result) {
+                console.log(result);
+            }
+        });
+    }
+</script>
 
-    var app ;
+<script>
+
+    var app;
     app = new Vue({
-        el:'#app',
-        data:{
-            blogList:[],
-            keyword:'',
-            duration:''
+        el: '#app',
+        data: {
+            blogList: [],
+            keyword: '',
+            duration: ''
         },
-        methods:{
-            getBlogs:function () {
+        methods: {
+            getBlogs: function () {
                 console.log("getBlogs");
                 var that = this;
-                axios.get("http://localhost:8080/blogs",{}).then(function (response) {
+                axios.get("http://localhost:8080/blogs", {}).then(function (response) {
                     that.blogList = response.data;
                 })
             },
-            searchWithMysql:function () {
+            searchWithMysql: function () {
                 console.log("searchWithMysql");
                 var that = this;
-                var param = {"type":"mysql","keyword":that.keyword};
-                axios.post("http://localhost:8080/search",param).then(function (response) {
+                var param = {"type": "mysql", "keyword": that.keyword};
+                axios.post("http://localhost:8080/search", param).then(function (response) {
                     that.blogList = response.data.list;
                     that.duration = response.data.duration;
                 })
             },
-            searchWithEs:function () {
+            searchWithEs: function () {
                 console.log("searchWithEs");
                 var that = this;
-                var param = {"type":"es","keyword":that.keyword};
-                axios.post("http://localhost:8080/search",param).then(function (response) {
+                var param = {"type": "es", "keyword": that.keyword};
+                axios.post("http://localhost:8080/search", param).then(function (response) {
                     that.blogList = response.data.list;
                     that.duration = response.data.duration;
                 })
             }
         },
-        created:function () {
+        created: function () {
             this.getBlogs();
         }
     })
