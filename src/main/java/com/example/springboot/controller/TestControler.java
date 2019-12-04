@@ -17,4 +17,11 @@ public class TestControler {
     public Object t1(@RequestBody User u) {
         return u;
     }
+
+    @PostMapping("/t2")
+    @ResponseBody
+    public String t1(String name, String age) {
+        System.out.println("哈哈");
+        return name + age;
+    }
 }
